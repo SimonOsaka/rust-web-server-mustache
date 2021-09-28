@@ -1,0 +1,38 @@
+use sqlx::Executor;
+
+use crate::db::{PoolOptions, SqlPool};
+
+#[derive(Clone, Debug)]
+pub struct Repo {
+    pub connection_pool: SqlPool,
+}
+
+impl Repo {
+    pub async fn new(database_url: &str) -> Self {
+        Self::from_pool_builder(&database_url).await
+    }
+
+    pub async fn from_pool_builder(database_url: &str) -> Self {
+        let connection_pool = PoolOptions::new()
+            .max_connections({{#repository}}{{max_conn}}{{/repository}})
+            .min_connections({{#repository}}{{min_conn}}{{/repository}})
+            .connect_timeout(std::time::Duration::from_secs({{#repository}}{{time_out}}{{/repository}}))
+            .after_connect(|conn| {
+                Box::pin(async move {
+                    if cfg!(feature = "mysql") {
+                        conn.execute("SET time_zone = '{{#repository}}{{time_zone}}{{/repository}}';").await?;
+                    } else if cfg!(feature = "postgres") {
+                        conn.execute("SET TIME ZONE '{{#repository}}{{time_zone}}{{/repository}}';").await?;
+                    }
+
+                    Ok(())
+                })
+            })
+            .connect(&database_url)
+            .await
+            .expect("init database error");
+
+        debug!("connection pool inited...");
+        Repo { connection_pool }
+    }
+}

@@ -1,0 +1,26 @@
+[package]
+name = "{{#domain}}{{package_name}}{{/domain}}"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "{{#domain}}{{package_name}}{{/domain}}"
+path = "src/lib.rs"
+
+[features]
+postgres = []
+mysql = []
+
+[dependencies]
+{{#types}}{{package_name}}{{/types}} = { path = "../{{#types}}{{member_name}}{{/types}}", features = ["{{features_name}}"] }
+{{#repository}}{{package_name}}{{/repository}} = { path = "../{{#repository}}{{member_name}}{{/repository}}", features = ["{{features_name}}"] }
+serde = { version = "1.0.125", features = ["derive"] }
+chrono = { version = "0.4.19", features = ["serde"] }
+itertools = "0.9.0"
+thiserror = "1.0.20"
+bcrypt = "0.8.1"
+anyhow = "1.0.40"
+async-trait = "0.1"
+flexi_logger = "0.19.3"
+log = "0.4"
