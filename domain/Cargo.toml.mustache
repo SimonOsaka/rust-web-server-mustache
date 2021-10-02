@@ -15,6 +15,7 @@ mysql = []
 [dependencies]
 {{#types}}{{package_name}}{{/types}} = { path = "../{{#types}}{{member_name}}{{/types}}", features = ["{{features_name}}"] }
 {{#repository}}{{package_name}}{{/repository}} = { path = "../{{#repository}}{{member_name}}{{/repository}}", features = ["{{features_name}}"] }
+{{#redis}}{{package_name}}{{/redis}} = { path = "../{{#redis}}{{member_name}}{{/redis}}" }
 serde = { version = "1.0.125", features = ["derive"] }
 chrono = { version = "0.4.19", features = ["serde"] }
 itertools = "0.9.0"

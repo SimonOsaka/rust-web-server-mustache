@@ -1,5 +1,3 @@
-use flexi_logger::{Age, Cleanup, Criterion, Duplicate, FileSpec, Logger, Naming, WriteMode};
-
 #[macro_use]
 extern crate log;
 
@@ -9,24 +7,11 @@ mod logger;
 async fn main() {
     dotenv::dotenv().ok();
 
-    Logger::try_with_env()
-        .unwrap()
-        .log_to_file(FileSpec::default().directory("{{#server}}{{log_path}}{{/server}}"))
-        .write_mode(WriteMode::BufferAndFlush)
-        .print_message()
-        .duplicate_to_stdout(Duplicate::All)
-        .duplicate_to_stderr(Duplicate::Warn)
-        .format(crate::logger::logger_format)
-        .rotate(
-            Criterion::Age(Age::Day),
-            Naming::Timestamps,
-            Cleanup::KeepLogFiles(7),
-        )
-        .append()
-        .start()
-        .unwrap();
+    logger::create();
 
-    debug!("log file path: {{#server}}{{log_path}}{{/server}}");
+    {{#repository}}{{package_name}}{{/repository}}::db::Repo::create().await;
+
+    {{#redis}}{{package_name}}{{/redis}}::connection::RedisConnection::create().await;
 
     {{#api}}{{package_name}}{{/api}}::start().await;
 }
