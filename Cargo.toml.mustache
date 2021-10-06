@@ -23,6 +23,7 @@ name = "{{#cargo_toml}}{{bin_name}}{{/cargo_toml}}"
 {{#api}}{{package_name}}{{/api}} = { path = "./{{#api}}{{member_name}}{{/api}}", features = ["{{features_name}}"] }
 {{#redis}}{{package_name}}{{/redis}} = { path = "./{{#redis}}{{member_name}}{{/redis}}" }
 {{#repository}}{{package_name}}{{/repository}} = { path = "./{{#repository}}{{member_name}}{{/repository}}" }
+{{#search}}{{package_name}}{{/search}} = { path = "./{{#search}}{{member_name}}{{/search}}" }
 async-trait = "0.1"
 flexi_logger = "0.19.3"
 log = "0.4"
@@ -30,4 +31,11 @@ dotenv = "0.15.0"
 tokio = { version = "1", features = ["macros"] }
 
 [workspace]
-members = ["{{#api}}{{member_name}}{{/api}}", "{{#repository}}{{member_name}}{{/repository}}", "{{#domain}}{{member_name}}{{/domain}}", "{{#types}}{{member_name}}{{/types}}", "{{#repository}}{{member_name}}{{/repository}}"]
+members = [
+    "{{#api}}{{member_name}}{{/api}}", 
+    "{{#repository}}{{member_name}}{{/repository}}", 
+    "{{#domain}}{{member_name}}{{/domain}}", 
+    "{{#types}}{{member_name}}{{/types}}", 
+    "{{#repository}}{{member_name}}{{/repository}}",
+    "{{#search}}{{member_name}}{{/search}}"
+    ]

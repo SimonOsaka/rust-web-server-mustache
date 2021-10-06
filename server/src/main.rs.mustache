@@ -13,5 +13,7 @@ async fn main() {
 
     {{#redis}}{{package_name}}{{/redis}}::connection::RedisConnection::create().await;
 
+    {{#search}}{{package_name}}{{/search}}::connection::MeiliSearch::create().await;
+
     {{#api}}{{package_name}}{{/api}}::start().await;
 }
