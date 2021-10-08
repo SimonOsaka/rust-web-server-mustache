@@ -11,7 +11,9 @@ async fn main() {
 
     {{#repository}}{{package_name}}{{/repository}}::db::Repo::create().await;
 
-    {{#redis}}{{package_name}}{{/redis}}::connection::RedisConnection::create().await;
+    if cfg!(feature = "{{#redis}}{{package_name}}{{/redis}}_module") {
+        {{#redis}}{{package_name}}{{/redis}}::connection::RedisConnection::create().await;
+    }
 
     {{#search}}{{package_name}}{{/search}}::connection::MeiliSearch::create().await;
 

@@ -19,6 +19,10 @@ bench = false
 path = "server/src/main.rs"
 name = "{{#cargo_toml}}{{bin_name}}{{/cargo_toml}}"
 
+[features]
+# default = ["{{#redis}}{{package_name}}{{/redis}}_module"]
+{{#redis}}{{package_name}}{{/redis}}_module = []
+
 [dependencies]
 {{#api}}{{package_name}}{{/api}} = { path = "./{{#api}}{{member_name}}{{/api}}", features = ["{{features_name}}"] }
 {{#redis}}{{package_name}}{{/redis}} = { path = "./{{#redis}}{{member_name}}{{/redis}}" }
