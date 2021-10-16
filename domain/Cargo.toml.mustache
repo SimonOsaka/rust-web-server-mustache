@@ -16,7 +16,7 @@ mysql = []
 {{#types}}{{package_name}}{{/types}} = { path = "../{{#types}}{{member_name}}{{/types}}", features = ["{{features_name}}"] }
 {{#repository}}{{package_name}}{{/repository}} = { path = "../{{#repository}}{{member_name}}{{/repository}}", features = ["{{features_name}}"] }
 {{#redis}}{{package_name}}{{/redis}} = { path = "../{{#redis}}{{member_name}}{{/redis}}" }
-{{#search}}{{package_name}}{{/search}} = { path = "../{{#search}}{{member_name}}{{/search}}" }
+{{#search}}{{package_name}}{{/search}} = { path = "../{{#search}}{{member_name}}{{/search}}", features = ["{{features_name}}"] }
 serde = { version = "1.0.125", features = ["derive"] }
 serde_json = "1.0"
 chrono = { version = "0.4.19", features = ["serde"] }

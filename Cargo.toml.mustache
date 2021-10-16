@@ -20,13 +20,18 @@ path = "server/src/main.rs"
 name = "{{#cargo_toml}}{{bin_name}}{{/cargo_toml}}"
 
 [features]
-# default = ["{{#redis}}{{package_name}}{{/redis}}_module"]
-{{#redis}}{{package_name}}{{/redis}}_module = []
+default = [
+    "{{#repository}}{{package_name}}{{/repository}}_lib", 
+    "{{#search}}{{package_name}}{{/search}}_lib"
+    ]
+{{#redis}}{{package_name}}{{/redis}}_lib = []
+{{#repository}}{{package_name}}{{/repository}}_lib = []
+{{#search}}{{package_name}}{{/search}}_lib = []
 
 [dependencies]
 {{#api}}{{package_name}}{{/api}} = { path = "./{{#api}}{{member_name}}{{/api}}", features = ["{{features_name}}"] }
 {{#redis}}{{package_name}}{{/redis}} = { path = "./{{#redis}}{{member_name}}{{/redis}}" }
-{{#repository}}{{package_name}}{{/repository}} = { path = "./{{#repository}}{{member_name}}{{/repository}}" }
+{{#repository}}{{package_name}}{{/repository}} = { path = "./{{#repository}}{{member_name}}{{/repository}}", features = ["{{features_name}}"] }
 {{#search}}{{package_name}}{{/search}} = { path = "./{{#search}}{{member_name}}{{/search}}" }
 async-trait = "0.1"
 flexi_logger = "0.19.3"
