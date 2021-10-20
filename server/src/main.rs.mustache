@@ -21,5 +21,9 @@ async fn main() {
         {{#search}}{{package_name}}{{/search}}::meilisearch::MeiliSearch::create().await;
     }
 
-    {{#api}}{{package_name}}{{/api}}::start().await;
+    if cfg!(feature = "{{#warp_api}}{{package_name}}{{/warp_api}}_lib") {
+        {{#warp_api}}{{package_name}}{{/warp_api}}::start().await;
+    } else {
+        {{#axum_api}}{{package_name}}{{/axum_api}}::start().await;
+    }
 }
