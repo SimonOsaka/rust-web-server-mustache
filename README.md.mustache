@@ -3,9 +3,10 @@
 
 ## Structure
 - {{#warp_api}}{{member_name}}{{/warp_api}}: web request & response
+- {{#axum_api}}{{member_name}}{{/axum_api}}: web request & response, module
 - {{#domain}}{{member_name}}{{/domain}}: business service & impl
 - {{#repository}}{{member_name}}{{/repository}}: wrap database operation & sql
 - {{#types}}{{member_name}}{{/types}}: type for all module
-- server: boot & logger
+- {{#server}}{{member_name}}{{/server}}: boot & logger
 - {{#redis}}{{member_name}}{{/redis}}: nosql db
 - {{#search}}{{member_name}}{{/search}}: search engine
