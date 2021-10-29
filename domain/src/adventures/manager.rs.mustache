@@ -3,7 +3,7 @@ use {{#types}}{{package_name}}{{/types}}::ID;
 
 use crate::{Adventures, AdventuresQuery, DomainError, GetAdventureError, PlayListQuery};
 #[async_trait]
-pub trait Manager {
+pub trait AdventuresManager {
     /// adventure list
     async fn find_adventures(&self, query: AdventuresQuery)
         -> Result<Vec<Adventures>, DomainError>;
@@ -18,6 +18,6 @@ pub trait Manager {
     async fn get_adventure_by_id(&self, id: ID) -> Result<Option<Adventures>, GetAdventureError>;
 
     async fn get_adventure(&self, id: ID) -> Result<Adventures, GetAdventureError>;
-    
+
     async fn sync_db_to_documents(&self, id: ID) -> Result<bool, DomainError>;
 }

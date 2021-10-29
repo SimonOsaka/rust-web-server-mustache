@@ -11,3 +11,20 @@
 - {{#redis}}{{member_name}}{{/redis}}: nosql db
 - {{#search}}{{member_name}}{{/search}}: search engine
 - {{#auth}}{{member_name}}{{/auth}}: jwt token auth
+
+## How to use sqlx migrations
+```shell
+# install sqlx-cli
+cargo install sqlx-cli --no-default-features --features postgres
+# create database from .env file of current workspace
+# add correct DATABASE_URL=..., no need create in database, sqlx will create it
+sqlx database create
+# create <timestamp>_my_example.up.sql and <timestamp>_my_example.down.sql
+sqlx migrate add -r my_example
+# run sql from <timestamp>.up.sql
+# multi sql file, it's like going into the stack, all at once
+sqlx migrate run
+# revert sql from <timestamp>.down.sql
+# only the most recent can be revert at a time, it's like going out of the stack
+sqlx migrate revert
+```

@@ -1,5 +1,5 @@
 use axum::{extract::Extension, Json};
-use {{#domain}}{{package_name}}{{/domain}}::{manager::Manager, AdventuresQuery};
+use {{#domain}}{{package_name}}{{/domain}}::{AdventuresManager, AdventuresQuery};
 use serde::Deserialize;
 use {{#types}}{{package_name}}{{/types}}::my_item_type_format::to_item_type_name;
 use validator::{Validate, ValidationError};

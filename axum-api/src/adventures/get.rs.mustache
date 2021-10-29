@@ -3,7 +3,7 @@ use axum::{
     extract::{Extension, Path},
     Json,
 };
-use {{#domain}}{{package_name}}{{/domain}}::manager::Manager;
+use {{#domain}}{{package_name}}{{/domain}}::AdventuresManager;
 use {{#types}}{{package_name}}{{/types}}::ID;
 
 pub async fn get_adventure(

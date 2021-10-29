@@ -22,7 +22,8 @@ name = "{{#cargo_toml}}{{bin_name}}{{/cargo_toml}}"
 [features]
 default = [
     "{{#repository}}{{package_name}}{{/repository}}_lib", 
-    "{{#search}}{{package_name}}{{/search}}_lib"
+    "{{#search}}{{package_name}}{{/search}}_lib",
+    "{{#warp_api}}{{package_name}}{{/warp_api}}_lib"
     ]
 {{#redis}}{{package_name}}{{/redis}}_lib = []
 {{#repository}}{{package_name}}{{/repository}}_lib = []
