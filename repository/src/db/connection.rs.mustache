@@ -23,9 +23,9 @@ impl Repo {
             .after_connect(|conn| {
                 Box::pin(async move {
                     if cfg!(feature = "mysql") {
-                        conn.execute("SET time_zone = '{{#repository}}{{time_zone}}{{/repository}}';").await?;
+                        conn.execute("SET time_zone = '{{#repository}}{{mysql_time_zone}}{{/repository}}';").await?;
                     } else if cfg!(feature = "postgres") {
-                        conn.execute("SET TIME ZONE '{{#repository}}{{time_zone}}{{/repository}}';").await?;
+                        conn.execute("SET TIME ZONE '{{#repository}}{{postgres_time_zone}}{{/repository}}';").await?;
                     }
 
                     Ok(())
