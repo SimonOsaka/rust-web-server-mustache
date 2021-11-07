@@ -22,11 +22,7 @@ impl Repo {
             .connect_timeout(std::time::Duration::from_secs({{#repository}}{{time_out}}{{/repository}}))
             .after_connect(|conn| {
                 Box::pin(async move {
-                    if cfg!(feature = "mysql") {
-                        conn.execute("SET time_zone = '{{#repository}}{{mysql_time_zone}}{{/repository}}';").await?;
-                    } else if cfg!(feature = "postgres") {
-                        conn.execute("SET TIME ZONE '{{#repository}}{{postgres_time_zone}}{{/repository}}';").await?;
-                    }
+                    conn.execute("SET TIME ZONE '{{#repository}}{{postgres_time_zone}}{{/repository}}';").await?;
 
                     Ok(())
                 })

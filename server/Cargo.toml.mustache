@@ -31,10 +31,10 @@ default = [
 {{#warp_api}}{{package_name}}{{/warp_api}}_lib = []
 
 [dependencies]
-{{#axum_api}}{{package_name}}{{/axum_api}} = { path = "../{{#axum_api}}{{member_name}}{{/axum_api}}", features = ["{{features_name}}"] }
-{{#warp_api}}{{package_name}}{{/warp_api}} = { path = "../{{#warp_api}}{{member_name}}{{/warp_api}}", features = ["{{features_name}}"] }
+{{#axum_api}}{{package_name}}{{/axum_api}} = { path = "../{{#axum_api}}{{member_name}}{{/axum_api}}" }
+{{#warp_api}}{{package_name}}{{/warp_api}} = { path = "../{{#warp_api}}{{member_name}}{{/warp_api}}" }
 {{#redis}}{{package_name}}{{/redis}} = { path = "../{{#redis}}{{member_name}}{{/redis}}" }
-{{#repository}}{{package_name}}{{/repository}} = { path = "../{{#repository}}{{member_name}}{{/repository}}", features = ["{{features_name}}"] }
+{{#repository}}{{package_name}}{{/repository}} = { path = "../{{#repository}}{{member_name}}{{/repository}}" }
 {{#search}}{{package_name}}{{/search}} = { path = "../{{#search}}{{member_name}}{{/search}}" }
 async-trait = "0.1"
 flexi_logger = "0.19"
