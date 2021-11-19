@@ -3,10 +3,12 @@ use axum::{
     Json,
 };
 use {{#domain}}{{package_name}}{{/domain}}::AdventuresManager;
+use tracing::debug;
 use {{#types}}{{package_name}}{{/types}}::ID;
 
 use crate::{app_request::AuthUser, app_response::AppError, AppState};
 
+#[tracing::instrument(skip(user, state))]
 pub async fn sync_adventure(
     Path(_id): Path<ID>,
     AuthUser(user): AuthUser,
