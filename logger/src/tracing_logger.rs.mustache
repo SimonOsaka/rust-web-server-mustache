@@ -31,9 +31,9 @@ impl tracing_subscriber::fmt::time::FormatTime for UtcWithTz {
 }
 pub fn log_create() -> (WorkerGuard, WorkerGuard) {
     let offset_tz = UtcWithTz {
-        hours: 8,
-        minutes: 0,
-        seconds: 0,
+        hours: {{#logger}}{{log_tz_hour}}{{/logger}},
+        minutes: {{#logger}}{{log_tz_minute}}{{/logger}},
+        seconds: {{#logger}}{{log_tz_second}}{{/logger}},
     };
 
     let (stderr_writer, _guard_stderr) = tracing_appender::non_blocking(std::io::stderr());
@@ -50,7 +50,7 @@ pub fn log_create() -> (WorkerGuard, WorkerGuard) {
     // 1. Local time required. log file append UTC time.
     // 2. no max file num
     // 3. file size
-    let file_appender = tracing_appender::rolling::hourly("/apps/log/rust", "example.log");
+    let file_appender = tracing_appender::rolling::hourly("{{#logger}}{{log_path}}{{/logger}}", "{{#logger}}{{log_file}}{{/logger}}");
     let (file_appender_writer, _guard_file) = tracing_appender::non_blocking(file_appender);
 
     let fmt_file = tracing_subscriber::fmt::Subscriber::new()
