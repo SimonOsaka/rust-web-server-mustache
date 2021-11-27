@@ -9,12 +9,19 @@ members = [
     "{{#axum_api}}{{member_name}}{{/axum_api}}",
     "{{#server}}{{member_name}}{{/server}}",
     "{{#auth}}{{member_name}}{{/auth}}",
-    "{{#logger}}{{member_name}}{{/logger}}"
+    "{{#logger}}{{member_name}}{{/logger}}",
+    "{{#extra}}{{member_name}}{{/extra}}"
     ]
 
 [profile.dev]
+opt-level = 0
+overflow-checks = true
+lto = false
+incremental = true
 codegen-units = 16
 
 [profile.release]
 lto = true
 opt-level = 'z'
+overflow-checks = false
+incremental = false

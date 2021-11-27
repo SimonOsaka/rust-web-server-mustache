@@ -7,21 +7,21 @@ async fn main() {
     // issue: https://github.com/tokio-rs/tracing/issues/971
     let (_guard_file, _guard_stderr) = {{#logger}}{{package_name}}{{/logger}}::log_create();
 
-    if cfg!(feature = "{{#repository}}{{package_name}}{{/repository}}_lib") {
-        {{#repository}}{{package_name}}{{/repository}}::db::Repo::create().await;
-    }
+    #[cfg(any(feature = "{{#extra}}{{package_name}}{{/extra}}_lib"))]
+    {{#extra}}{{package_name}}{{/extra}}::init().await;
 
-    if cfg!(feature = "{{#redis}}{{package_name}}{{/redis}}_lib") {
-        {{#redis}}{{package_name}}{{/redis}}::connection::RedisConnection::create().await;
-    }
+    #[cfg(any(feature = "{{#repository}}{{package_name}}{{/repository}}_lib"))]
+    {{#repository}}{{package_name}}{{/repository}}::db::Repo::create().await;
 
-    if cfg!(feature = "{{#search}}{{package_name}}{{/search}}_lib") {
-        {{#search}}{{package_name}}{{/search}}::meilisearch::MeiliSearch::create().await;
-    }
+    #[cfg(any(feature = "{{#redis}}{{package_name}}{{/redis}}_lib"))]
+    {{#redis}}{{package_name}}{{/redis}}::connection::RedisConnection::create().await;
 
-    if cfg!(feature = "{{#warp_api}}{{package_name}}{{/warp_api}}_lib") {
-        {{#warp_api}}{{package_name}}{{/warp_api}}::start().await;
-    } else {
-        {{#axum_api}}{{package_name}}{{/axum_api}}::start().await;
-    }
+    #[cfg(any(feature = "{{#search}}{{package_name}}{{/search}}_lib"))]
+    {{#search}}{{package_name}}{{/search}}::meilisearch::MeiliSearch::create().await;
+
+    #[cfg(any(feature = "{{#warp_api}}{{package_name}}{{/warp_api}}_lib"))]
+    {{#warp_api}}{{package_name}}{{/warp_api}}::start().await;
+    
+    #[cfg(any(feature = "{{#axum_api}}{{package_name}}{{/axum_api}}_lib"))]
+    {{#axum_api}}{{package_name}}{{/axum_api}}::start().await;
 }
