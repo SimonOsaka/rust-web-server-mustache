@@ -9,10 +9,10 @@ edition = "2021"
 {{#types}}{{package_name}}{{/types}} = { path = "../{{#types}}{{member_name}}{{/types}}" }
 {{#domain}}{{package_name}}{{/domain}} = { path = "../{{#domain}}{{member_name}}{{/domain}}" }
 {{#auth}}{{package_name}}{{/auth}} = { path = "../{{#auth}}{{member_name}}{{/auth}}" }
-axum = { version = "0.3" }
+axum = { version = "0.4" }
 tokio = { version = "1.0", features = ["full"] }
 tower = { version = "0.4", features = ["util", "filter", "timeout"] }
-tower-http = { version = "0.1", features = ["trace", "add-extension"] }
+tower-http = { version = "0.2", features = ["trace", "add-extension"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 jsonwebtoken = "7"

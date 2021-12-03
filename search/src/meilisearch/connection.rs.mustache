@@ -7,7 +7,6 @@ use crate::MEILISEARCH;
 
 #[derive(Debug)]
 pub struct MeiliSearch {
-    pub(crate) meili_key: String,
     pub(crate) adventures_index: Index,
 }
 
@@ -23,7 +22,6 @@ impl MeiliSearch {
         MEILISEARCH
             .set(MeiliSearch {
                 adventures_index,
-                meili_key: meilisearch_key,
             })
             .expect("meilisearch index must created");
 
