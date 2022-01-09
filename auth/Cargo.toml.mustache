@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 {{#types}}{{package_name}}{{/types}} = { path = "../{{#types}}{{member_name}}{{/types}}" }
+{{#i18n}}{{package_name}}{{/i18n}} = { path = "../{{#i18n}}{{member_name}}{{/i18n}}" }
 jsonwebtoken = "7"
 once_cell = "1.8.0"
 chrono = "0.4.19"
