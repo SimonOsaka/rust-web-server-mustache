@@ -7,6 +7,9 @@ async fn main() {
     // issue: https://github.com/tokio-rs/tracing/issues/971
     let (_guard_file, _guard_stderr) = {{#logger}}{{package_name}}{{/logger}}::log_create();
 
+    #[cfg(any(feature = "{{#auth}}{{package_name}}{{/auth}}_lib"))]
+    {{#auth}}{{package_name}}{{/auth}}::init().await;
+
     #[cfg(any(feature = "{{#extra}}{{package_name}}{{/extra}}_lib"))]
     {{#extra}}{{package_name}}{{/extra}}::init().await;
 

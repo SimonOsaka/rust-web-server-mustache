@@ -31,6 +31,7 @@ default = [
 {{#warp_api}}{{package_name}}{{/warp_api}}_lib = ["{{#warp_api}}{{package_name}}{{/warp_api}}"]
 {{#axum_api}}{{package_name}}{{/axum_api}}_lib = ["{{#axum_api}}{{package_name}}{{/axum_api}}"]
 {{#extra}}{{package_name}}{{/extra}}_lib = ["{{#extra}}{{package_name}}{{/extra}}/email"]
+{{#auth}}{{package_name}}{{/auth}}_lib = ["{{#auth}}{{package_name}}{{/auth}}/authorization", "{{#auth}}{{package_name}}{{/auth}}/jwt"]
 
 [dependencies]
 {{#axum_api}}{{package_name}}{{/axum_api}} = { path = "../{{#axum_api}}{{member_name}}{{/axum_api}}", optional = true }
@@ -40,5 +41,6 @@ default = [
 {{#search}}{{package_name}}{{/search}} = { path = "../{{#search}}{{member_name}}{{/search}}", optional = true }
 {{#extra}}{{package_name}}{{/extra}} = { path = "../{{#extra}}{{member_name}}{{/extra}}", optional = true }
 {{#logger}}{{package_name}}{{/logger}} = { path = "../{{#logger}}{{member_name}}{{/logger}}" }
+{{#auth}}{{package_name}}{{/auth}} = { path = "../{{#auth}}{{member_name}}{{/auth}}", optional = true }
 dotenv = "0.15.0"
 tokio = { version = "1", features = ["macros"] }
