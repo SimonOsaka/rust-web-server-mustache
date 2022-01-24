@@ -32,6 +32,9 @@ default = [
 {{#axum_api}}{{package_name}}{{/axum_api}}_lib = ["{{#axum_api}}{{package_name}}{{/axum_api}}"]
 {{#extra}}{{package_name}}{{/extra}}_lib = ["{{#extra}}{{package_name}}{{/extra}}/email"]
 {{#auth}}{{package_name}}{{/auth}}_lib = ["{{#auth}}{{package_name}}{{/auth}}/authorization", "{{#auth}}{{package_name}}{{/auth}}/jwt"]
+# Append to default
+# command: RUSTFLAGS="--cfg tokio_unstable" cargo run
+tokio_console = ["tokio/tracing", "console-subscriber"]
 
 [dependencies]
 {{#axum_api}}{{package_name}}{{/axum_api}} = { path = "../{{#axum_api}}{{member_name}}{{/axum_api}}", optional = true }
@@ -44,3 +47,4 @@ default = [
 {{#auth}}{{package_name}}{{/auth}} = { path = "../{{#auth}}{{member_name}}{{/auth}}", optional = true }
 dotenv = "0.15.0"
 tokio = { version = "1", features = ["macros"] }
+console-subscriber = { version = "0.1", optional = true }
