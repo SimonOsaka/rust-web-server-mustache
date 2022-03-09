@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 {{#types}}{{package_name}}{{/types}} = { path = "../{{#types}}{{member_name}}{{/types}}" }
-meilisearch-sdk = { version = "0.13.0", default-features = false, features = [
+meilisearch-sdk = { version = "0.15.0", default-features = false, features = [
     "sync",
 ] }
 
