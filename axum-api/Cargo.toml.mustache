@@ -9,7 +9,7 @@ edition = "2021"
 {{#types}}{{package_name}}{{/types}} = { path = "../{{#types}}{{member_name}}{{/types}}" }
 {{#domain}}{{package_name}}{{/domain}} = { path = "../{{#domain}}{{member_name}}{{/domain}}" }
 {{#auth}}{{package_name}}{{/auth}} = { path = "../{{#auth}}{{member_name}}{{/auth}}" }
-{{#util}}{{package_name}}{{/util}} = { path = "../{{#util}}{{member_name}}{{/util}}" }
+{{#util}}{{package_name}}{{/util}} = { path = "../{{#util}}{{member_name}}{{/util}}", features = ["excel"] }
 axum = { version = "0.4" }
 tokio = { version = "1.0", features = ["full"] }
 tower = { version = "0.4", features = ["util", "filter", "timeout"] }
