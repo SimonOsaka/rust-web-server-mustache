@@ -23,12 +23,11 @@ name = "{{#cargo_toml}}{{bin_name}}{{/cargo_toml}}"
 default = [
     "{{#repository}}{{package_name}}{{/repository}}_lib", 
     "{{#search}}{{package_name}}{{/search}}_lib",
-    "{{#warp_api}}{{package_name}}{{/warp_api}}_lib"
+    "{{#axum_api}}{{package_name}}{{/axum_api}}_lib"
     ]
 {{#redis}}{{package_name}}{{/redis}}_lib = ["{{#redis}}{{package_name}}{{/redis}}"]
 {{#repository}}{{package_name}}{{/repository}}_lib = ["{{#repository}}{{package_name}}{{/repository}}"]
 {{#search}}{{package_name}}{{/search}}_lib = ["{{#search}}{{package_name}}{{/search}}"]
-{{#warp_api}}{{package_name}}{{/warp_api}}_lib = ["{{#warp_api}}{{package_name}}{{/warp_api}}"]
 {{#axum_api}}{{package_name}}{{/axum_api}}_lib = ["{{#axum_api}}{{package_name}}{{/axum_api}}"]
 {{#extra}}{{package_name}}{{/extra}}_lib = ["{{#extra}}{{package_name}}{{/extra}}/email"]
 {{#auth}}{{package_name}}{{/auth}}_lib = ["{{#auth}}{{package_name}}{{/auth}}/authorization", "{{#auth}}{{package_name}}{{/auth}}/jwt"]
@@ -38,7 +37,6 @@ tokio_console = ["tokio/tracing", "console-subscriber"]
 
 [dependencies]
 {{#axum_api}}{{package_name}}{{/axum_api}} = { path = "../{{#axum_api}}{{member_name}}{{/axum_api}}", optional = true }
-{{#warp_api}}{{package_name}}{{/warp_api}} = { path = "../{{#warp_api}}{{member_name}}{{/warp_api}}", optional = true }
 {{#redis}}{{package_name}}{{/redis}} = { path = "../{{#redis}}{{member_name}}{{/redis}}", optional = true }
 {{#repository}}{{package_name}}{{/repository}} = { path = "../{{#repository}}{{member_name}}{{/repository}}", optional = true }
 {{#search}}{{package_name}}{{/search}} = { path = "../{{#search}}{{member_name}}{{/search}}", optional = true }
