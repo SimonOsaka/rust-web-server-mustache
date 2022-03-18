@@ -60,7 +60,7 @@ impl Excel {
         for (sheet, rows) in sheets_and_rows {
             let mut sheet1 = workbook
                 .add_worksheet(Some(sheet))
-                .map_err(|e| ExcelError::Export(e))?;
+                .map_err(ExcelError::Export)?;
             for (row_index, row) in rows.into_iter().enumerate() {
                 for (col_index, col) in row.into_iter().enumerate() {
                     sheet1
@@ -70,28 +70,48 @@ impl Excel {
                             col,
                             None,
                         )
-                        .map_err(|e| ExcelError::Export(e))?;
+                        .map_err(ExcelError::Export)?;
                 }
             }
         }
-        workbook.close().map_err(|e| ExcelError::Export(e))?;
+        workbook.close().map_err(ExcelError::Export)?;
 
         Ok(())
     }
 
+    /// export a sheet with data, return bytes
+    /// - `rows`: export rows and columns
+    ///
+    /// # Example
+    /// ```rust
+    /// let cols = vec!["cell1", "cell2"];
+    /// let rows = vec![cols];
+    /// Excel::write_and_get_bytes(rows);
+    /// ```
     pub fn write_and_get_bytes(rows: Vec<Vec<&str>>) -> Result<Vec<u8>, ExcelError> {
         let mut sheets_and_rows = HashMap::new();
         sheets_and_rows.insert("sheet1", rows);
         Self::write_with_sheet_and_get_bytes(sheets_and_rows)
     }
 
+    /// export multi sheets with data, return bytes
+    /// - `sheets_and_rows`: export sheet with data rows and columns
+    ///
+    /// # Example
+    /// ```rust
+    /// let cols = vec!["cell1", "cell2"];
+    /// let rows = vec![cols];
+    /// let sheets_and_rows = HashMap::new();
+    /// sheets_and_rows.insert("sheet1", rows);
+    /// Excel::write_with_sheet_and_get_bytes(sheets_and_rows, "path/to/demo.xlsx");
+    /// ```
     pub fn write_with_sheet_and_get_bytes(
         sheets_and_rows: HashMap<&str, Vec<Vec<&str>>>,
     ) -> Result<Vec<u8>, ExcelError> {
         let uuid = Uuid::new_v4().to_string();
         Self::write_with_sheet(sheets_and_rows, &uuid)?;
-        let result = read(&uuid).map_err(|e| ExcelError::IO(e))?;
-        remove_file(&uuid).map_err(|e| ExcelError::IO(e))?;
+        let result = read(&uuid).map_err(ExcelError::IO)?;
+        remove_file(&uuid).map_err(ExcelError::IO)?;
         Ok(result)
     }
 }
